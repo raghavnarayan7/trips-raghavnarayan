@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Trips 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e8ed;
+    --text-dim: rgba(255,255,255,0.5);
+    --glass: rgba(10,10,15,0.55);
+    --glass-border: rgba(255,255,255,0.12);
+    --accent-bali: #00d4aa;
+    --accent-delhi: #ff9f43;
+    --accent-mumbai: #ff6b8a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 24px 60px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .header .plane {
+    font-size: 2.4rem;
+    margin-bottom: 14px;
+    display: inline-block;
+    animation: fly 3s ease-in-out infinite;
+  }
+  @keyframes fly {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-8px) rotate(2deg); }
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.65) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header p {
+    color: var(--text-dim);
+    font-size: 1rem;
+  }
+
+  /* ==================== TRIP CARD ==================== */
+  .trip-card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    min-height: 480px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Carousel layer */
+  .carousel {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .carousel img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.8s ease-in-out;
+  }
+  .carousel img.active {
+    opacity: 1;
+  }
+
+  /* Dark overlay for readability */
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,10,15,0.15) 0%,
+      rgba(10,10,15,0.3) 30%,
+      rgba(10,10,15,0.65) 65%,
+      rgba(10,10,15,0.88) 100%
+    );
+  }
+
+  /* Carousel dots */
+  .carousel-dots {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    z-index: 3;
+    display: flex;
+    gap: 6px;
+  }
+  .carousel-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transition: all 0.4s ease;
+  }
+  .carousel-dots .dot.active {
+    background: rgba(255,255,255,0.9);
+    transform: scale(1.15);
+  }
+
+  /* Content layer */
+  .card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 480px;
+    padding: 28px 32px 32px;
+  }
+
+  /* Top: destination name + status */
+  .card-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .dest-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.6);
+    letter-spacing: -0.5px;
+  }
+  .dest-sub {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  }
+
+  .trip-status {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 7px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(0,0,0,0.35);
+    color: white;
+    margin-top: 6px;
+  }
+
+  /* Bottom section */
+  .card-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Countdown row */
+  .countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .countdown-unit {
+    text-align: center;
+    padding: 16px 8px;
+    background: var(--glass);
+    border-radius: 14px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .countdown-number {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -1px;
+  }
+  .trip-card.bali .countdown-number { color: var(--accent-bali); }
+  .trip-card.delhi .countdown-number { color: var(--accent-delhi); }
+  .trip-card.mumbai .countdown-number { color: var(--accent-mumbai); }
+
+  .countdown-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+  }
+
+  /* Info pills row */
+  .info-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .info-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.7);
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+  .info-pill .icon {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+  .info-pill.hotel {
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.2);
+  }
+  .info-pill.hotel .icon { opacity: 1; }
+
+  /* Active trip */
+  .trip-card.active .countdown-number {
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  /* Past trip */
+  .trip-card.past { opacity: 0.4; }
+  .trip-card.past .countdown-number { color: var(--text-dim) !important; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.3);
+    font-size: 0.78rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container { padding: 32px 14px 48px; }
+    .trip-card { min-height: 420px; }
+    .card-content { min-height: 420px; padding: 20px 18px 24px; }
+    .card-top { padding: 18px 18px 0; }
+    .dest-name { font-size: 2rem; }
+    .countdown { gap: 6px; }
+    .countdown-unit { padding: 12px 4px; border-radius: 10px; }
+    .info-row { gap: 6px; }
+    .info-pill { font-size: 0.72rem; padding: 5px 10px; }
+    .carousel-dots { top: 16px; right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="plane">✈️</div>
+    <h1>Our Trips 2026</h1>
+    <p>Raghav & Juliana</p>
+  </div>
+
+  <!-- ==================== BALI ==================== -->
+  <div class="trip-card bali" id="trip-bali" data-trip="bali">
+    <div class="carousel" id="carousel-bali">
+      <img src="https://images.unsplash.com/photo-1573790387438-4da905039392?w=1400&h=900&fit=crop" alt="Bali beach sunset" class="active">
+      <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1400&h=900&fit=crop&crop=bottom" alt="Bali temple ocean">
+      <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1400&h=900&fit=crop" alt="Bali infinity pool overlooking jungle">
+      <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1400&h=900&fit=crop" alt="Bali rice terraces">
+      <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=1400&h=900&fit=crop" alt="Bali tropical beach">
+    </div>
+    <div class="card-overlay"></div>
+    <div class="carousel-dots" id="dots-bali"></div>
+
+    <div class="card-content">
+      <div class="card-top">
+        <div>
+          <div class="dest-name">Bali</div>
+          <div class="dest-sub">Jul 23 – 27 · 4 nights</div>
+        </div>
+        <div class="trip-status" id="status-bali">—</div>
+      </div>
+
+      <div class="card-bottom">
+        <div class="countdown">
+          <div class="countdown-unit"><div class="countdown-number" id="bali-days">--</div><div class="countdown-label">Days</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="bali-hours">--</div><div class="countdown-label">Hours</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="bali-mins">--</div><div class="countdown-label">Minutes</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="bali-secs">--</div><div class="countdown-label">Seconds</div></div>
+        </div>
+        <div class="info-row">
+          <div class="info-pill"><span class="icon">🛫</span> AK 364 · KUL 09:00</div>
+          <div class="info-pill"><span class="icon">🛬</span> DPS 12:15</div>
+          <div class="info-pill"><span class="icon">📋</span> BEZCJD</div>
+          <div class="info-pill hotel"><span class="icon">🏨</span> Alila Seminyak</div>
+          <div class="info-pill hotel"><span class="icon">🏨</span> The Ritz-Carlton, Bali</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DELHI (AUG) ==================== -->
+  <div class="trip-card delhi" id="trip-delhi" data-trip="delhi">
+    <div class="carousel" id="carousel-delhi">
+      <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=900&fit=crop" alt="India Gate, New Delhi" class="active">
+      <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&h=900&fit=crop" alt="Taj Mahal at sunrise">
+      <img src="https://images.unsplash.com/photo-1597040663342-45b6af3d91a5?w=1400&h=900&fit=crop" alt="Humayun's Tomb Delhi">
+      <img src="https://images.unsplash.com/photo-1515091943-9d5c0ad475af?w=1400&h=900&fit=crop" alt="Delhi streets and culture">
+      <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1400&h=900&fit=crop" alt="Lotus Temple Delhi">
+    </div>
+    <div class="card-overlay"></div>
+    <div class="carousel-dots" id="dots-delhi"></div>
+
+    <div class="card-content">
+      <div class="card-top">
+        <div>
+          <div class="dest-name">Delhi</div>
+          <div class="dest-sub">Aug 19 – 24 · 5 nights · Home</div>
+        </div>
+        <div class="trip-status" id="status-delhi">—</div>
+      </div>
+
+      <div class="card-bottom">
+        <div class="countdown">
+          <div class="countdown-unit"><div class="countdown-number" id="delhi-days">--</div><div class="countdown-label">Days</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="delhi-hours">--</div><div class="countdown-label">Hours</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="delhi-mins">--</div><div class="countdown-label">Minutes</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="delhi-secs">--</div><div class="countdown-label">Seconds</div></div>
+        </div>
+        <div class="info-row">
+          <div class="info-pill"><span class="icon">🛫</span> D7 182 · KUL 18:55</div>
+          <div class="info-pill"><span class="icon">🛬</span> DEL 22:05</div>
+          <div class="info-pill"><span class="icon">💺</span> 15H Premium Flatbed</div>
+          <div class="info-pill"><span class="icon">📋</span> XHMK6K</div>
+          <div class="info-pill"><span class="icon">🏠</span> Staying at home</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DELHI & MUMBAI (NOV) ==================== -->
+  <div class="trip-card mumbai" id="trip-mumbai" data-trip="mumbai">
+    <div class="carousel" id="carousel-mumbai">
+      <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1400&h=900&fit=crop" alt="Gateway of India, Mumbai" class="active">
+      <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e13?w=1400&h=900&fit=crop" alt="Mumbai Marine Drive aerial">
+      <img src="https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=1400&h=900&fit=crop" alt="Mumbai skyline at dusk">
+      <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=900&fit=crop" alt="India Gate Delhi">
+      <img src="https://images.unsplash.com/photo-1595658658481-d53d3f999875?w=1400&h=900&fit=crop" alt="Mumbai Haji Ali Dargah">
+    </div>
+    <div class="card-overlay"></div>
+    <div class="carousel-dots" id="dots-mumbai"></div>
+
+    <div class="card-content">
+      <div class="card-top">
+        <div>
+          <div class="dest-name">Delhi & Mumbai</div>
+          <div class="dest-sub">Nov 4 – 13 · 9 nights · Ash's Wedding 🎊</div>
+        </div>
+        <div class="trip-status" id="status-mumbai">—</div>
+      </div>
+
+      <div class="card-bottom">
+        <div class="countdown">
+          <div class="countdown-unit"><div class="countdown-number" id="mumbai-days">--</div><div class="countdown-label">Days</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="mumbai-hours">--</div><div class="countdown-label">Hours</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="mumbai-mins">--</div><div class="countdown-label">Minutes</div></div>
+          <div class="countdown-unit"><div class="countdown-number" id="mumbai-secs">--</div><div class="countdown-label">Seconds</div></div>
+        </div>
+        <div class="info-row">
+          <div class="info-pill"><span class="icon">🛫</span> D7 182 · KUL 18:50</div>
+          <div class="info-pill"><span class="icon">✈️</span> DEL → AI 2425 → BOM</div>
+          <div class="info-pill"><span class="icon">📋</span> NFT3SA / 7NOB9U / GIBERZ</div>
+          <div class="info-pill"><span class="icon">🏠</span> Home (Delhi & Mumbai)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">❤️ Made with love in KL</div>
+
+</div>
+
+<script>
+  // ==================== CAROUSEL ====================
+  const carousels = {};
+
+  document.querySelectorAll('.trip-card').forEach(card => {
+    const tripId = card.dataset.trip;
+    const images = card.querySelectorAll('.carousel img');
+    const dotsContainer = document.getElementById(`dots-${tripId}`);
+    let currentIndex = 0;
+
+    // Create dots
+    images.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('.dot');
+
+    function showSlide(index) {
+      images[currentIndex].classList.remove('active');
+      dots[currentIndex].classList.remove('active');
+      currentIndex = index % images.length;
+      images[currentIndex].classList.add('active');
+      dots[currentIndex].classList.add('active');
+    }
+
+    // Auto-advance every 5 seconds, stagger start per card
+    const stagger = Object.keys(carousels).length * 1700;
+    carousels[tripId] = setInterval(() => {
+      showSlide(currentIndex + 1);
+    }, 5000);
+
+    // Stagger initial advance
+    setTimeout(() => {
+      showSlide(1);
+    }, 3000 + stagger);
+  });
+
+  // ==================== COUNTDOWN ====================
+  const trips = [
+    { id: 'bali',   depart: new Date('2026-07-23T09:00:00+08:00'), end: new Date('2026-07-27T17:40:00+08:00') },
+    { id: 'delhi',  depart: new Date('2026-08-19T18:55:00+08:00'), end: new Date('2026-08-25T07:40:00+08:00') },
+    { id: 'mumbai', depart: new Date('2026-11-04T18:50:00+08:00'), end: new Date('2026-11-14T06:55:00+08:00') }
+  ];
+
+  function updateCountdowns() {
+    const now = new Date();
+
+    trips.forEach(trip => {
+      const els = {
+        days: document.getElementById(`${trip.id}-days`),
+        hours: document.getElementById(`${trip.id}-hours`),
+        mins: document.getElementById(`${trip.id}-mins`),
+        secs: document.getElementById(`${trip.id}-secs`),
+        status: document.getElementById(`status-${trip.id}`),
+        card: document.getElementById(`trip-${trip.id}`)
+      };
+
+      let diff, statusText;
+
+      if (now >= trip.end) {
+        diff = 0;
+        statusText = 'Completed ✓';
+        els.card.classList.add('past');
+        els.card.classList.remove('active');
+      } else if (now >= trip.depart) {
+        diff = trip.end - now;
+        statusText = "You're there! 🎉";
+        els.card.classList.add('active');
+        els.card.classList.remove('past');
+      } else {
+        diff = trip.depart - now;
+        const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+        if (totalDays <= 1) statusText = 'Tomorrow!';
+        else if (totalDays <= 7) statusText = 'This week!';
+        else if (totalDays <= 30) statusText = 'Coming soon';
+        else statusText = `${totalDays} days to go`;
+        els.card.classList.remove('active', 'past');
+      }
+
+      if (diff <= 0) {
+        els.days.textContent = '0';
+        els.hours.textContent = '00';
+        els.mins.textContent = '00';
+        els.secs.textContent = '00';
+      } else {
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        els.days.textContent = d;
+        els.hours.textContent = String(h).padStart(2, '0');
+        els.mins.textContent = String(m).padStart(2, '0');
+        els.secs.textContent = String(s).padStart(2, '0');
+      }
+
+      els.status.textContent = statusText;
+    });
+  }
+
+  updateCountdowns();
+  setInterval(updateCountdowns, 1000);
+</script>
+
+</body>
+</html>
