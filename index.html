@@ -17,6 +17,9 @@
     --accent-bali: #00d4aa;
     --accent-delhi: #ff9f43;
     --accent-mumbai: #ff6b8a;
+    --accent-delhi-past: #ff9f43;
+    --accent-melbourne: #7c8cf8;
+    --accent-holi: #e855d4;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,7 +41,7 @@
   /* Header */
   .header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 32px;
   }
   .header .plane {
     font-size: 2.4rem;
@@ -64,6 +67,62 @@
   .header p {
     color: var(--text-dim);
     font-size: 1rem;
+  }
+
+  /* ==================== TAB NAVIGATION ==================== */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 36px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 14px;
+    padding: 4px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .tab-btn:hover {
+    color: rgba(255,255,255,0.75);
+  }
+  .tab-btn.active {
+    background: rgba(255,255,255,0.12);
+    color: white;
+  }
+  .tab-btn .tab-count {
+    display: inline-block;
+    font-size: 0.7rem;
+    background: rgba(255,255,255,0.15);
+    padding: 1px 7px;
+    border-radius: 100px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .tab-btn.active .tab-count {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Tab content */
+  .tab-content {
+    display: none;
+  }
+  .tab-content.active {
+    display: block;
   }
 
   /* ==================== TRIP CARD ==================== */
@@ -263,9 +322,58 @@
     50% { opacity: 0.7; }
   }
 
-  /* Past trip */
-  .trip-card.past { opacity: 0.4; }
-  .trip-card.past .countdown-number { color: var(--text-dim) !important; }
+  /* Past trip card — completed look */
+  .trip-card.past-trip {
+    min-height: 360px;
+  }
+  .trip-card.past-trip .card-content {
+    min-height: 360px;
+  }
+  .trip-card.past-trip .card-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(10,10,15,0.1) 0%,
+      rgba(10,10,15,0.25) 30%,
+      rgba(10,10,15,0.55) 60%,
+      rgba(10,10,15,0.82) 100%
+    );
+  }
+  .trip-card.past-trip .trip-status {
+    background: rgba(0,212,170,0.2);
+    border-color: rgba(0,212,170,0.3);
+    color: #00d4aa;
+  }
+
+  /* Past trip memory row */
+  .memory-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .memory-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+  .memory-pill .icon {
+    font-size: 0.85rem;
+  }
+
+  /* Passed section empty state */
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-dim);
+  }
+  .empty-state .icon { font-size: 3rem; margin-bottom: 16px; }
+  .empty-state p { font-size: 0.95rem; }
 
   /* Footer */
   .footer {
@@ -281,13 +389,16 @@
   @media (max-width: 600px) {
     .container { padding: 32px 14px 48px; }
     .trip-card { min-height: 420px; }
+    .trip-card.past-trip { min-height: 320px; }
     .card-content { min-height: 420px; padding: 20px 18px 24px; }
+    .trip-card.past-trip .card-content { min-height: 320px; }
     .card-top { padding: 18px 18px 0; }
     .dest-name { font-size: 2rem; }
     .countdown { gap: 6px; }
     .countdown-unit { padding: 12px 4px; border-radius: 10px; }
     .info-row { gap: 6px; }
     .info-pill { font-size: 0.72rem; padding: 5px 10px; }
+    .memory-pill { font-size: 0.72rem; padding: 5px 10px; }
     .carousel-dots { top: 16px; right: 16px; }
   }
 </style>
@@ -298,124 +409,233 @@
 
   <div class="header">
     <div class="plane">✈️</div>
-    <h1>Our Trips 2026</h1>
+    <h1>Our Trips</h1>
     <p>Raghav & Juliana</p>
   </div>
 
-  <!-- ==================== BALI ==================== -->
-  <div class="trip-card bali" id="trip-bali" data-trip="bali">
-    <div class="carousel" id="carousel-bali">
-      <img src="https://images.unsplash.com/photo-1573790387438-4da905039392?w=1400&h=900&fit=crop" alt="Bali beach sunset" class="active">
-      <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1400&h=900&fit=crop&crop=bottom" alt="Bali temple ocean">
-      <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1400&h=900&fit=crop" alt="Bali infinity pool overlooking jungle">
-      <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1400&h=900&fit=crop" alt="Bali rice terraces">
-      <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=1400&h=900&fit=crop" alt="Bali tropical beach">
-    </div>
-    <div class="card-overlay"></div>
-    <div class="carousel-dots" id="dots-bali"></div>
-
-    <div class="card-content">
-      <div class="card-top">
-        <div>
-          <div class="dest-name">Bali</div>
-          <div class="dest-sub">Jul 23 – 27 · 4 nights</div>
-        </div>
-        <div class="trip-status" id="status-bali">—</div>
-      </div>
-
-      <div class="card-bottom">
-        <div class="countdown">
-          <div class="countdown-unit"><div class="countdown-number" id="bali-days">--</div><div class="countdown-label">Days</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="bali-hours">--</div><div class="countdown-label">Hours</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="bali-mins">--</div><div class="countdown-label">Minutes</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="bali-secs">--</div><div class="countdown-label">Seconds</div></div>
-        </div>
-        <div class="info-row">
-          <div class="info-pill"><span class="icon">🛫</span> AK 364 · KUL 09:00</div>
-          <div class="info-pill"><span class="icon">🛬</span> DPS 12:15</div>
-          <div class="info-pill"><span class="icon">📋</span> BEZCJD</div>
-          <div class="info-pill hotel"><span class="icon">🏨</span> Alila Seminyak</div>
-          <div class="info-pill hotel"><span class="icon">🏨</span> The Ritz-Carlton, Bali</div>
-        </div>
-      </div>
-    </div>
+  <!-- ==================== TABS ==================== -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="upcoming">Upcoming <span class="tab-count">3</span></button>
+    <button class="tab-btn" data-tab="passed">Passed <span class="tab-count">3</span></button>
   </div>
 
-  <!-- ==================== DELHI (AUG) ==================== -->
-  <div class="trip-card delhi" id="trip-delhi" data-trip="delhi">
-    <div class="carousel" id="carousel-delhi">
-      <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=900&fit=crop" alt="India Gate, New Delhi" class="active">
-      <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&h=900&fit=crop" alt="Taj Mahal at sunrise">
-      <img src="https://images.unsplash.com/photo-1597040663342-45b6af3d91a5?w=1400&h=900&fit=crop" alt="Humayun's Tomb Delhi">
-      <img src="https://images.unsplash.com/photo-1515091943-9d5c0ad475af?w=1400&h=900&fit=crop" alt="Delhi streets and culture">
-      <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1400&h=900&fit=crop" alt="Lotus Temple Delhi">
-    </div>
-    <div class="card-overlay"></div>
-    <div class="carousel-dots" id="dots-delhi"></div>
+  <!-- ==================== UPCOMING TAB ==================== -->
+  <div class="tab-content active" id="tab-upcoming">
 
-    <div class="card-content">
-      <div class="card-top">
-        <div>
-          <div class="dest-name">Delhi</div>
-          <div class="dest-sub">Aug 19 – 24 · 5 nights · Home</div>
-        </div>
-        <div class="trip-status" id="status-delhi">—</div>
+    <!-- BALI -->
+    <div class="trip-card bali" id="trip-bali" data-trip="bali">
+      <div class="carousel" id="carousel-bali">
+        <img src="https://images.unsplash.com/photo-1573790387438-4da905039392?w=1400&h=900&fit=crop" alt="Bali beach sunset" class="active">
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1400&h=900&fit=crop&crop=bottom" alt="Bali temple ocean">
+        <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1400&h=900&fit=crop" alt="Bali infinity pool overlooking jungle">
+        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1400&h=900&fit=crop" alt="Bali rice terraces">
+        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=1400&h=900&fit=crop" alt="Bali tropical beach">
       </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-bali"></div>
 
-      <div class="card-bottom">
-        <div class="countdown">
-          <div class="countdown-unit"><div class="countdown-number" id="delhi-days">--</div><div class="countdown-label">Days</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="delhi-hours">--</div><div class="countdown-label">Hours</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="delhi-mins">--</div><div class="countdown-label">Minutes</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="delhi-secs">--</div><div class="countdown-label">Seconds</div></div>
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">Bali</div>
+            <div class="dest-sub">Jul 23 – 27 · 4 nights</div>
+          </div>
+          <div class="trip-status" id="status-bali">—</div>
         </div>
-        <div class="info-row">
-          <div class="info-pill"><span class="icon">🛫</span> D7 182 · KUL 18:55</div>
-          <div class="info-pill"><span class="icon">🛬</span> DEL 22:05</div>
-          <div class="info-pill"><span class="icon">💺</span> 15H Premium Flatbed</div>
-          <div class="info-pill"><span class="icon">📋</span> XHMK6K</div>
-          <div class="info-pill"><span class="icon">🏠</span> Staying at home</div>
+
+        <div class="card-bottom">
+          <div class="countdown">
+            <div class="countdown-unit"><div class="countdown-number" id="bali-days">--</div><div class="countdown-label">Days</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="bali-hours">--</div><div class="countdown-label">Hours</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="bali-mins">--</div><div class="countdown-label">Minutes</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="bali-secs">--</div><div class="countdown-label">Seconds</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-pill"><span class="icon">🛫</span> AK 364 · KUL 09:00</div>
+            <div class="info-pill"><span class="icon">🛬</span> DPS 12:15</div>
+            <div class="info-pill"><span class="icon">📋</span> BEZCJD</div>
+            <div class="info-pill hotel"><span class="icon">🏨</span> Alila Seminyak</div>
+            <div class="info-pill hotel"><span class="icon">🏨</span> The Ritz-Carlton, Bali</div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- DELHI (AUG) -->
+    <div class="trip-card delhi" id="trip-delhi" data-trip="delhi">
+      <div class="carousel" id="carousel-delhi">
+        <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=900&fit=crop" alt="India Gate, New Delhi" class="active">
+        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&h=900&fit=crop" alt="Taj Mahal at sunrise">
+        <img src="https://images.unsplash.com/photo-1597040663342-45b6af3d91a5?w=1400&h=900&fit=crop" alt="Humayun's Tomb Delhi">
+        <img src="https://images.unsplash.com/photo-1515091943-9d5c0ad475af?w=1400&h=900&fit=crop" alt="Delhi streets and culture">
+        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1400&h=900&fit=crop" alt="Lotus Temple Delhi">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-delhi"></div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">Delhi</div>
+            <div class="dest-sub">Aug 19 – 24 · 5 nights · Home</div>
+          </div>
+          <div class="trip-status" id="status-delhi">—</div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="countdown">
+            <div class="countdown-unit"><div class="countdown-number" id="delhi-days">--</div><div class="countdown-label">Days</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="delhi-hours">--</div><div class="countdown-label">Hours</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="delhi-mins">--</div><div class="countdown-label">Minutes</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="delhi-secs">--</div><div class="countdown-label">Seconds</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-pill"><span class="icon">🛫</span> D7 182 · KUL 18:55</div>
+            <div class="info-pill"><span class="icon">🛬</span> DEL 22:05</div>
+            <div class="info-pill"><span class="icon">💺</span> 15H Premium Flatbed</div>
+            <div class="info-pill"><span class="icon">📋</span> XHMK6K</div>
+            <div class="info-pill"><span class="icon">🏠</span> Staying at home</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DELHI & MUMBAI (NOV) -->
+    <div class="trip-card mumbai" id="trip-mumbai" data-trip="mumbai">
+      <div class="carousel" id="carousel-mumbai">
+        <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1400&h=900&fit=crop" alt="Gateway of India, Mumbai" class="active">
+        <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e13?w=1400&h=900&fit=crop" alt="Mumbai Marine Drive aerial">
+        <img src="https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=1400&h=900&fit=crop" alt="Mumbai skyline at dusk">
+        <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=900&fit=crop" alt="India Gate Delhi">
+        <img src="https://images.unsplash.com/photo-1595658658481-d53d3f999875?w=1400&h=900&fit=crop" alt="Mumbai Haji Ali Dargah">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-mumbai"></div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">Delhi & Mumbai</div>
+            <div class="dest-sub">Nov 4 – 13 · 9 nights · Ash's Wedding 🎊</div>
+          </div>
+          <div class="trip-status" id="status-mumbai">—</div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="countdown">
+            <div class="countdown-unit"><div class="countdown-number" id="mumbai-days">--</div><div class="countdown-label">Days</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="mumbai-hours">--</div><div class="countdown-label">Hours</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="mumbai-mins">--</div><div class="countdown-label">Minutes</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="mumbai-secs">--</div><div class="countdown-label">Seconds</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-pill"><span class="icon">🛫</span> D7 182 · KUL 18:50</div>
+            <div class="info-pill"><span class="icon">✈️</span> DEL → AI 2425 → BOM</div>
+            <div class="info-pill"><span class="icon">📋</span> NFT3SA / 7NOB9U / GIBERZ</div>
+            <div class="info-pill"><span class="icon">🏠</span> Home (Delhi & Mumbai)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- ==================== DELHI & MUMBAI (NOV) ==================== -->
-  <div class="trip-card mumbai" id="trip-mumbai" data-trip="mumbai">
-    <div class="carousel" id="carousel-mumbai">
-      <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1400&h=900&fit=crop" alt="Gateway of India, Mumbai" class="active">
-      <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e13?w=1400&h=900&fit=crop" alt="Mumbai Marine Drive aerial">
-      <img src="https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=1400&h=900&fit=crop" alt="Mumbai skyline at dusk">
-      <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=900&fit=crop" alt="India Gate Delhi">
-      <img src="https://images.unsplash.com/photo-1595658658481-d53d3f999875?w=1400&h=900&fit=crop" alt="Mumbai Haji Ali Dargah">
-    </div>
-    <div class="card-overlay"></div>
-    <div class="carousel-dots" id="dots-mumbai"></div>
+  <!-- ==================== PASSED TAB ==================== -->
+  <div class="tab-content" id="tab-passed">
 
-    <div class="card-content">
-      <div class="card-top">
-        <div>
-          <div class="dest-name">Delhi & Mumbai</div>
-          <div class="dest-sub">Nov 4 – 13 · 9 nights · Ash's Wedding 🎊</div>
-        </div>
-        <div class="trip-status" id="status-mumbai">—</div>
+    <!-- DELHI — JAN (NYE) -->
+    <div class="trip-card past-trip delhi-past" data-trip="delhi-nye">
+      <div class="carousel" id="carousel-delhi-nye">
+        <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=900&fit=crop" alt="India Gate, New Delhi" class="active">
+        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1400&h=900&fit=crop" alt="Delhi Qutub Minar at dusk">
+        <img src="https://images.unsplash.com/photo-1515091943-9d5c0ad475af?w=1400&h=900&fit=crop" alt="Delhi streets and culture">
+        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1400&h=900&fit=crop" alt="Lotus Temple Delhi">
+        <img src="https://images.unsplash.com/photo-1597040663342-45b6af3d91a5?w=1400&h=900&fit=crop" alt="Humayun's Tomb Delhi">
       </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-delhi-nye"></div>
 
-      <div class="card-bottom">
-        <div class="countdown">
-          <div class="countdown-unit"><div class="countdown-number" id="mumbai-days">--</div><div class="countdown-label">Days</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="mumbai-hours">--</div><div class="countdown-label">Hours</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="mumbai-mins">--</div><div class="countdown-label">Minutes</div></div>
-          <div class="countdown-unit"><div class="countdown-number" id="mumbai-secs">--</div><div class="countdown-label">Seconds</div></div>
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">Delhi</div>
+            <div class="dest-sub">January 2026 · New Year's Eve 🎆</div>
+          </div>
+          <div class="trip-status">Completed ✓</div>
         </div>
-        <div class="info-row">
-          <div class="info-pill"><span class="icon">🛫</span> D7 182 · KUL 18:50</div>
-          <div class="info-pill"><span class="icon">✈️</span> DEL → AI 2425 → BOM</div>
-          <div class="info-pill"><span class="icon">📋</span> NFT3SA / 7NOB9U / GIBERZ</div>
-          <div class="info-pill"><span class="icon">🏠</span> Home (Delhi & Mumbai)</div>
+
+        <div class="card-bottom">
+          <div class="memory-row">
+            <div class="memory-pill"><span class="icon">🏠</span> Home</div>
+            <div class="memory-pill"><span class="icon">🎆</span> NYE celebrations</div>
+            <div class="memory-pill"><span class="icon">👨‍👩‍👦</span> Family time</div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- MELBOURNE — FEB -->
+    <div class="trip-card past-trip melbourne" data-trip="melbourne">
+      <div class="carousel" id="carousel-melbourne">
+        <img src="https://images.unsplash.com/photo-1514395462725-fb4566210144?w=1400&h=900&fit=crop" alt="Melbourne skyline and Yarra River" class="active">
+        <img src="https://images.unsplash.com/photo-1545044846-351ba102b6d5?w=1400&h=900&fit=crop" alt="Melbourne laneways and street art">
+        <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1400&h=900&fit=crop" alt="Melbourne Flinders Street Station">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&h=900&fit=crop" alt="Great Ocean Road coastline">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1400&h=900&fit=crop" alt="Melbourne coffee culture">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-melbourne"></div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">Melbourne</div>
+            <div class="dest-sub">February 2026 · Australia 🇦🇺</div>
+          </div>
+          <div class="trip-status">Completed ✓</div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="memory-row">
+            <div class="memory-pill"><span class="icon">🇦🇺</span> Australia</div>
+            <div class="memory-pill"><span class="icon">☕</span> Coffee capital</div>
+            <div class="memory-pill"><span class="icon">🌊</span> Great Ocean Road</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INDIA — MAR (HOLI) -->
+    <div class="trip-card past-trip holi" data-trip="holi">
+      <div class="carousel" id="carousel-holi">
+        <img src="https://images.unsplash.com/photo-1576334568420-40f1d4a53f71?w=1400&h=900&fit=crop" alt="Holi festival colors" class="active">
+        <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1400&h=900&fit=crop" alt="India Gate, New Delhi">
+        <img src="https://images.unsplash.com/photo-1603228254119-e6a4d095dc59?w=1400&h=900&fit=crop" alt="Holi celebration crowds">
+        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&h=900&fit=crop" alt="Taj Mahal">
+        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1400&h=900&fit=crop" alt="Lotus Temple Delhi">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-holi"></div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">India</div>
+            <div class="dest-sub">March 2026 · Holi Festival 🎨</div>
+          </div>
+          <div class="trip-status">Completed ✓</div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="memory-row">
+            <div class="memory-pill"><span class="icon">🎨</span> Holi celebrations</div>
+            <div class="memory-pill"><span class="icon">🏠</span> Delhi</div>
+            <div class="memory-pill"><span class="icon">👨‍👩‍👦</span> Family</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="footer">❤️ Made with love in KL</div>
@@ -423,6 +643,20 @@
 </div>
 
 <script>
+  // ==================== TAB SWITCHING ====================
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(tc => tc.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`tab-${target}`).classList.add('active');
+    });
+  });
+
   // ==================== CAROUSEL ====================
   const carousels = {};
 
@@ -430,6 +664,8 @@
     const tripId = card.dataset.trip;
     const images = card.querySelectorAll('.carousel img');
     const dotsContainer = document.getElementById(`dots-${tripId}`);
+    if (!dotsContainer || images.length === 0) return;
+
     let currentIndex = 0;
 
     // Create dots
@@ -480,6 +716,8 @@
         status: document.getElementById(`status-${trip.id}`),
         card: document.getElementById(`trip-${trip.id}`)
       };
+
+      if (!els.days || !els.card) return;
 
       let diff, statusText;
 
