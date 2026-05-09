@@ -7,6 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
   :root {
     --bg: #0a0a0f;
     --text: #e8e8ed;
@@ -19,6 +20,7 @@
     --accent-delhi-past: #ff9f43;
     --accent-melbourne: #7c8cf8;
     --accent-holi: #e855d4;
+    --accent-penang: #f6c453;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -274,6 +276,7 @@
   .trip-card.bali .countdown-number { color: var(--accent-bali); }
   .trip-card.delhi .countdown-number { color: var(--accent-delhi); }
   .trip-card.mumbai .countdown-number { color: var(--accent-mumbai); }
+  .trip-card.penang .countdown-number { color: var(--accent-penang); }
 
   .countdown-label {
     font-size: 0.65rem;
@@ -414,12 +417,48 @@
 
   <!-- ==================== TABS ==================== -->
   <div class="tabs">
-    <button class="tab-btn active" data-tab="upcoming">Upcoming <span class="tab-count">3</span></button>
+    <button class="tab-btn active" data-tab="upcoming">Upcoming <span class="tab-count">4</span></button>
     <button class="tab-btn" data-tab="passed">Passed <span class="tab-count">3</span></button>
   </div>
 
   <!-- ==================== UPCOMING TAB ==================== -->
   <div class="tab-content active" id="tab-upcoming">
+
+    <!-- PENANG -->
+    <div class="trip-card penang" id="trip-penang" data-trip="penang">
+      <div class="carousel" id="carousel-penang">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Eastern_%26_Oriental_Hotel_April_2025.jpg/1920px-Eastern_%26_Oriental_Hotel_April_2025.jpg" alt="Eastern & Oriental Hotel, Penang" class="active">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Batu_Ferringhi%2C_George_Town%2C_Penang_2023.jpg/1920px-Batu_Ferringhi%2C_George_Town%2C_Penang_2023.jpg" alt="Batu Ferringhi beach, Penang">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Cmglee_Penang_Eastern_and_Oriental_Hotel_pool.jpg/1920px-Cmglee_Penang_Eastern_and_Oriental_Hotel_pool.jpg" alt="E&O Hotel pool, Penang">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Batu_Ferringhi_Panorama.jpg" alt="Batu Ferringhi panorama">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Cheong_Fatt_Tze_Mansion_%28I%29_%28closeup%29.jpg/1920px-Cheong_Fatt_Tze_Mansion_%28I%29_%28closeup%29.jpg" alt="Cheong Fatt Tze Mansion, George Town">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-penang"></div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">Penang</div>
+            <div class="dest-sub">May 27 – 30 · 3 nights</div>
+          </div>
+          <div class="trip-status" id="status-penang">—</div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="countdown">
+            <div class="countdown-unit"><div class="countdown-number" id="penang-days">--</div><div class="countdown-label">Days</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="penang-hours">--</div><div class="countdown-label">Hours</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="penang-mins">--</div><div class="countdown-label">Minutes</div></div>
+            <div class="countdown-unit"><div class="countdown-number" id="penang-secs">--</div><div class="countdown-label">Seconds</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-pill"><span class="icon">🚗</span> Road trip · KL → Penang</div>
+            <div class="info-pill hotel"><span class="icon">🏨</span> Eastern &amp; Oriental Hotel</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- BALI -->
     <div class="trip-card bali" id="trip-bali" data-trip="bali">
@@ -576,11 +615,11 @@
     <!-- MELBOURNE — FEB -->
     <div class="trip-card past-trip melbourne" data-trip="melbourne">
       <div class="carousel" id="carousel-melbourne">
-        <img src="https://images.unsplash.com/photo-1514395462725-fb4566210144?w=1400&h=900&fit=crop" alt="Melbourne skyline at night from Yarra River" class="active">
-        <img src="https://images.unsplash.com/photo-1545044846-351ba102b6d0?w=1400&h=900&fit=crop" alt="Melbourne Flinders Street area">
-        <img src="https://images.unsplash.com/photo-1581251489230-1e1b4d01a2d3?w=1400&h=900&fit=crop" alt="Melbourne with rowers on Yarra River">
-        <img src="https://images.unsplash.com/photo-1508985307392-1688e1236c66?w=1400&h=900&fit=crop" alt="Melbourne CBD cityscape">
-        <img src="https://images.unsplash.com/photo-1580381272-b13bba7358fc?w=1400&h=900&fit=crop" alt="Melbourne street and urban scene">
+        <img src="https://images.unsplash.com/photo-1514395462725-fb4566210144?w=1400&h=900&fit=crop" alt="Melbourne skyline and Yarra River" class="active">
+        <img src="https://images.unsplash.com/photo-1545044846-351ba102b6d5?w=1400&h=900&fit=crop" alt="Melbourne laneways and street art">
+        <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1400&h=900&fit=crop" alt="Melbourne Flinders Street Station">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&h=900&fit=crop" alt="Great Ocean Road coastline">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1400&h=900&fit=crop" alt="Melbourne coffee culture">
       </div>
       <div class="card-overlay"></div>
       <div class="carousel-dots" id="dots-melbourne"></div>
@@ -604,7 +643,7 @@
       </div>
     </div>
 
-    <!-- DELHI — MAR (HOLI) -->
+    <!-- INDIA — MAR (HOLI) -->
     <div class="trip-card past-trip holi" data-trip="holi">
       <div class="carousel" id="carousel-holi">
         <img src="https://images.unsplash.com/photo-1576334568420-40f1d4a53f71?w=1400&h=900&fit=crop" alt="Holi festival colors" class="active">
@@ -619,7 +658,7 @@
       <div class="card-content">
         <div class="card-top">
           <div>
-            <div class="dest-name">Delhi</div>
+            <div class="dest-name">India</div>
             <div class="dest-sub">March 2026 · Holi Festival 🎨</div>
           </div>
           <div class="trip-status">Completed ✓</div>
@@ -698,6 +737,7 @@
 
   // ==================== COUNTDOWN ====================
   const trips = [
+    { id: 'penang', depart: new Date('2026-05-27T09:00:00+08:00'), end: new Date('2026-05-30T20:00:00+08:00') },
     { id: 'bali',   depart: new Date('2026-07-23T09:00:00+08:00'), end: new Date('2026-07-27T17:40:00+08:00') },
     { id: 'delhi',  depart: new Date('2026-08-19T18:55:00+08:00'), end: new Date('2026-08-25T07:40:00+08:00') },
     { id: 'mumbai', depart: new Date('2026-11-04T18:50:00+08:00'), end: new Date('2026-11-14T06:55:00+08:00') }
@@ -735,7 +775,6 @@
         const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
         if (totalDays <= 1) statusText = 'Tomorrow!';
         else if (totalDays <= 7) statusText = 'This week!';
-        else if (totalDays <= 30) statusText = 'Coming soon';
         else statusText = `${totalDays} days to go`;
         els.card.classList.remove('active', 'past');
       }
