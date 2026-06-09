@@ -417,48 +417,12 @@
 
   <!-- ==================== TABS ==================== -->
   <div class="tabs">
-    <button class="tab-btn active" data-tab="upcoming">Upcoming <span class="tab-count">4</span></button>
-    <button class="tab-btn" data-tab="passed">Passed <span class="tab-count">3</span></button>
+    <button class="tab-btn active" data-tab="upcoming">Upcoming <span class="tab-count">3</span></button>
+    <button class="tab-btn" data-tab="passed">Passed <span class="tab-count">4</span></button>
   </div>
 
   <!-- ==================== UPCOMING TAB ==================== -->
   <div class="tab-content active" id="tab-upcoming">
-
-    <!-- PENANG -->
-    <div class="trip-card penang" id="trip-penang" data-trip="penang">
-      <div class="carousel" id="carousel-penang">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Eastern_%26_Oriental_Hotel_April_2025.jpg/1920px-Eastern_%26_Oriental_Hotel_April_2025.jpg" alt="Eastern & Oriental Hotel, Penang" class="active">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Batu_Ferringhi%2C_George_Town%2C_Penang_2023.jpg/1920px-Batu_Ferringhi%2C_George_Town%2C_Penang_2023.jpg" alt="Batu Ferringhi beach, Penang">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Cmglee_Penang_Eastern_and_Oriental_Hotel_pool.jpg/1920px-Cmglee_Penang_Eastern_and_Oriental_Hotel_pool.jpg" alt="E&O Hotel pool, Penang">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Batu_Ferringhi_Panorama.jpg" alt="Batu Ferringhi panorama">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Cheong_Fatt_Tze_Mansion_%28I%29_%28closeup%29.jpg/1920px-Cheong_Fatt_Tze_Mansion_%28I%29_%28closeup%29.jpg" alt="Cheong Fatt Tze Mansion, George Town">
-      </div>
-      <div class="card-overlay"></div>
-      <div class="carousel-dots" id="dots-penang"></div>
-
-      <div class="card-content">
-        <div class="card-top">
-          <div>
-            <div class="dest-name">Penang</div>
-            <div class="dest-sub">May 27 – 30 · 3 nights</div>
-          </div>
-          <div class="trip-status" id="status-penang">—</div>
-        </div>
-
-        <div class="card-bottom">
-          <div class="countdown">
-            <div class="countdown-unit"><div class="countdown-number" id="penang-days">--</div><div class="countdown-label">Days</div></div>
-            <div class="countdown-unit"><div class="countdown-number" id="penang-hours">--</div><div class="countdown-label">Hours</div></div>
-            <div class="countdown-unit"><div class="countdown-number" id="penang-mins">--</div><div class="countdown-label">Minutes</div></div>
-            <div class="countdown-unit"><div class="countdown-number" id="penang-secs">--</div><div class="countdown-label">Seconds</div></div>
-          </div>
-          <div class="info-row">
-            <div class="info-pill"><span class="icon">🚗</span> Road trip · KL → Penang</div>
-            <div class="info-pill hotel"><span class="icon">🏨</span> Eastern &amp; Oriental Hotel</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- BALI -->
     <div class="trip-card bali" id="trip-bali" data-trip="bali">
@@ -674,6 +638,37 @@
       </div>
     </div>
 
+    <!-- PENANG — MAY -->
+    <div class="trip-card past-trip penang-past" data-trip="penang-past">
+      <div class="carousel" id="carousel-penang-past">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Eastern_%26_Oriental_Hotel_April_2025.jpg/1920px-Eastern_%26_Oriental_Hotel_April_2025.jpg" alt="Eastern & Oriental Hotel, Penang" class="active">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Batu_Ferringhi%2C_George_Town%2C_Penang_2023.jpg/1920px-Batu_Ferringhi%2C_George_Town%2C_Penang_2023.jpg" alt="Batu Ferringhi beach, Penang">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Cmglee_Penang_Eastern_and_Oriental_Hotel_pool.jpg/1920px-Cmglee_Penang_Eastern_and_Oriental_Hotel_pool.jpg" alt="E&O Hotel pool, Penang">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Batu_Ferringhi_Panorama.jpg" alt="Batu Ferringhi panorama">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Cheong_Fatt_Tze_Mansion_%28I%29_%28closeup%29.jpg/1920px-Cheong_Fatt_Tze_Mansion_%28I%29_%28closeup%29.jpg" alt="Cheong Fatt Tze Mansion, George Town">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-penang-past"></div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">Penang</div>
+            <div class="dest-sub">May 27 – 30 · 3 nights</div>
+          </div>
+          <div class="trip-status">Completed ✓</div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="memory-row">
+            <div class="memory-pill"><span class="icon">🚗</span> Road trip</div>
+            <div class="memory-pill"><span class="icon">🏨</span> E&amp;O Hotel</div>
+            <div class="memory-pill"><span class="icon">🇲🇾</span> George Town</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="footer">❤️ Made with love in KL</div>
@@ -737,7 +732,6 @@
 
   // ==================== COUNTDOWN ====================
   const trips = [
-    { id: 'penang', depart: new Date('2026-05-27T09:00:00+08:00'), end: new Date('2026-05-30T20:00:00+08:00') },
     { id: 'bali',   depart: new Date('2026-07-23T09:00:00+08:00'), end: new Date('2026-07-27T17:40:00+08:00') },
     { id: 'delhi',  depart: new Date('2026-08-19T18:55:00+08:00'), end: new Date('2026-08-25T07:40:00+08:00') },
     { id: 'mumbai', depart: new Date('2026-11-04T18:50:00+08:00'), end: new Date('2026-11-14T06:55:00+08:00') }
