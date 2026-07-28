@@ -417,51 +417,12 @@
 
   <!-- ==================== TABS ==================== -->
   <div class="tabs">
-    <button class="tab-btn active" data-tab="upcoming">Upcoming <span class="tab-count">3</span></button>
-    <button class="tab-btn" data-tab="passed">Passed <span class="tab-count">4</span></button>
+    <button class="tab-btn active" data-tab="upcoming">Upcoming <span class="tab-count">2</span></button>
+    <button class="tab-btn" data-tab="passed">Passed <span class="tab-count">5</span></button>
   </div>
 
   <!-- ==================== UPCOMING TAB ==================== -->
   <div class="tab-content active" id="tab-upcoming">
-
-    <!-- BALI -->
-    <div class="trip-card bali" id="trip-bali" data-trip="bali">
-      <div class="carousel" id="carousel-bali">
-        <img src="https://images.unsplash.com/photo-1573790387438-4da905039392?w=1400&h=900&fit=crop" alt="Bali beach sunset" class="active">
-        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1400&h=900&fit=crop&crop=bottom" alt="Bali temple ocean">
-        <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1400&h=900&fit=crop" alt="Bali infinity pool overlooking jungle">
-        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1400&h=900&fit=crop" alt="Bali rice terraces">
-        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=1400&h=900&fit=crop" alt="Bali tropical beach">
-      </div>
-      <div class="card-overlay"></div>
-      <div class="carousel-dots" id="dots-bali"></div>
-
-      <div class="card-content">
-        <div class="card-top">
-          <div>
-            <div class="dest-name">Bali</div>
-            <div class="dest-sub">Jul 23 – 27 · 4 nights</div>
-          </div>
-          <div class="trip-status" id="status-bali">—</div>
-        </div>
-
-        <div class="card-bottom">
-          <div class="countdown">
-            <div class="countdown-unit"><div class="countdown-number" id="bali-days">--</div><div class="countdown-label">Days</div></div>
-            <div class="countdown-unit"><div class="countdown-number" id="bali-hours">--</div><div class="countdown-label">Hours</div></div>
-            <div class="countdown-unit"><div class="countdown-number" id="bali-mins">--</div><div class="countdown-label">Minutes</div></div>
-            <div class="countdown-unit"><div class="countdown-number" id="bali-secs">--</div><div class="countdown-label">Seconds</div></div>
-          </div>
-          <div class="info-row">
-            <div class="info-pill"><span class="icon">🛫</span> AK 364 · KUL 09:00</div>
-            <div class="info-pill"><span class="icon">🛬</span> DPS 12:15</div>
-            <div class="info-pill"><span class="icon">📋</span> BEZCJD</div>
-            <div class="info-pill hotel"><span class="icon">🏨</span> Alila Seminyak</div>
-            <div class="info-pill hotel"><span class="icon">🏨</span> The Ritz-Carlton, Bali</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- DELHI (AUG) -->
     <div class="trip-card delhi" id="trip-delhi" data-trip="delhi">
@@ -669,6 +630,35 @@
       </div>
     </div>
 
+    <!-- BALI — JUL -->
+    <div class="trip-card past-trip bali-past" data-trip="bali-past">
+      <div class="carousel" id="carousel-bali-past">
+        <img src="https://images.unsplash.com/photo-1573790387438-4da905039392?w=1400&h=900&fit=crop" alt="Bali beach sunset" class="active">
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1400&h=900&fit=crop&crop=bottom" alt="Bali temple ocean">
+        <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1400&h=900&fit=crop" alt="Bali infinity pool overlooking jungle">
+        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1400&h=900&fit=crop" alt="Bali rice terraces">
+        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?w=1400&h=900&fit=crop" alt="Bali tropical beach">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="carousel-dots" id="dots-bali-past"></div>
+      <div class="card-content">
+        <div class="card-top">
+          <div>
+            <div class="dest-name">Bali</div>
+            <div class="dest-sub">Jul 23 – 27 · 4 nights</div>
+          </div>
+          <div class="trip-status">Completed ✓</div>
+        </div>
+        <div class="card-bottom">
+          <div class="memory-row">
+            <div class="memory-pill"><span class="icon">🏝️</span> Bali</div>
+            <div class="memory-pill"><span class="icon">🏨</span> Alila Seminyak</div>
+            <div class="memory-pill"><span class="icon">🏨</span> Ritz-Carlton</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="footer">❤️ Made with love in KL</div>
@@ -732,7 +722,6 @@
 
   // ==================== COUNTDOWN ====================
   const trips = [
-    { id: 'bali',   depart: new Date('2026-07-23T09:00:00+08:00'), end: new Date('2026-07-27T17:40:00+08:00') },
     { id: 'delhi',  depart: new Date('2026-08-19T18:55:00+08:00'), end: new Date('2026-08-25T07:40:00+08:00') },
     { id: 'mumbai', depart: new Date('2026-11-04T18:50:00+08:00'), end: new Date('2026-11-14T06:55:00+08:00') }
   ];
